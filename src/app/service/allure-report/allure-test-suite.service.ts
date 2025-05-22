@@ -24,7 +24,7 @@ export class AllureTestSuiteService {
             const testCaseElement = elementTestcases[i];
 
             const testCaseStatus = testCaseElement.getAttribute('status') || "";
-            const testCaseName = testCaseElement.getElementsByTagName('name')[0]?.textContent || '';
+            const testCaseName = testCaseElement.getElementsByTagName('name')[0].textContent;
 
             console.log(`TEST CASE: ${testCaseName} ( ${testCaseStatus} )`);
 
@@ -113,7 +113,7 @@ export class AllureTestSuiteService {
         const elementSteps = parent.getElementsByTagName('step')
         for (let i = 0; i < elementSteps.length; i++) {
             const stepElement = elementSteps[i];
-            const stepName = stepElement.getElementsByTagName('name')[0]?.textContent || '';
+            const stepName = stepElement.getElementsByTagName('name')[0].textContent;
             const step: Step = {
                 name:           stepName,
                 action:         stepName,

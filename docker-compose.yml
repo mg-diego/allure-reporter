@@ -2,6 +2,6 @@ version: '3.8'
 
 services:
   allure-reporter:
-    build: .
+    image: allure-reporter:latest
     ports:
       - "4200:4200"

@@ -69,6 +69,14 @@ export class AppComponent {
 		this.update();
 	}
 
+	private _setNewParser = true;
+	get setNewParser(): boolean {
+		return this._setNewParser;
+	}
+	set setNewParser(isActive: boolean) {
+		this._setNewParser = isActive;
+	}
+
 	constructor(private http: HttpClient, private ref: ChangeDetectorRef, protected dialogService: DialogService, protected testSuiteService: TestSuiteService, protected testCaseService: TestCaseService, private toastr: ToastrService, protected ngZone: NgZone) {
 	}
 
@@ -96,7 +104,14 @@ export class AppComponent {
 							const xmlDoc: Document = parser.parseFromString(e.target.result, 'text/xml');
 							const newTestSuite = this.testSuiteService.parseFromDocument(xmlDoc);
 							if (newTestSuite.testCases.length > 0) {
-								this.addTestSuite(newTestSuite);
+								if (this.setNewParser) {
+									console.log('NEW PARSER ACTIVATED')
+									this.addTestSuite(newTestSuite);
+								}
+								else {
+									console.log('OLD PARSER ACTIVATED')
+									this.addTestSuite(newTestSuite);
+								}
 							}
 						}
 					}
@@ -202,6 +217,10 @@ export class AppComponent {
 		const sMinutes = minutes < 10 ? '0' + minutes : '' + minutes;
 		const strTime = hours + ':' + sMinutes + ' ' + ampm;
 		return date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear() + '  ' + strTime;
+	}
+
+	public doToggleParser(show: boolean) {
+
 	}
 
 	public doShowUser(show: boolean) {

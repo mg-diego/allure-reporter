@@ -18,26 +18,28 @@ export class AllureTestSuiteService {
             testCases: []
         };
 
-        const elementTestcases = xmlDocument.getElementsByTagName('test-cases');
+        const elementTestcases = xmlDocument.getElementsByTagName('test-case');
 
         for (let i = 0; i < elementTestcases.length; i++) {
-            const testCaseStatus = elementTestcases[i].getAttribute('status');
-            const testCaseName = elementTestcases[i].getElementsByTagName('name')[0].childNodes[0].nodeValue;       
+            const testCaseElement = elementTestcases[i];
 
-            console.log(`TEST CASE: ${testCaseName} (${testCaseStatus})`);
+            const testCaseStatus = testCaseElement.getAttribute('status') || "";
+            const testCaseName = testCaseElement.getElementsByTagName('name')[0]?.textContent || '';
+
+            console.log(`TEST CASE: ${testCaseName} ( ${testCaseStatus} )`);
 
             const testCase: TestCase = {
                 uuid:        testCaseName,
                 historyId:   '',
-                labels:      this.parseLabels(elementTestcases[i]),
+                labels:      this.parseLabels(testCaseElement),
                 links:       [],
                 name:        testCaseName,
                 status:      testCaseStatus,
                 stage:       '',
-                description: elementTestcases[i].getElementsByTagName('title')[0].childNodes[0].nodeValue,
-                start:       Number(elementTestcases[i].getAttribute('start')),
-                stop:        Number(elementTestcases[i].getAttribute('stop')),
-                steps:       this.parseSteps(elementTestcases[i], testCaseStatus)
+                description: testCaseElement.getElementsByTagName('title')[0].childNodes[0].nodeValue,
+                start:       Number(testCaseElement.getAttribute('start')),
+                stop:        Number(testCaseElement.getAttribute('stop')),
+                steps:       this.parseSteps(testCaseElement)
             };
 
             if (testCase.steps.length === 0) {
@@ -106,20 +108,21 @@ export class AllureTestSuiteService {
         return currentStatus;
     }
 
-    private parseSteps(parent: Element, testCaseStatus: string): Step[] {
+    private parseSteps(parent: Element): Step[] {
         const steps: Step[] = [];
-        const elementSteps = parent.getElementsByTagName('steps')
+        const elementSteps = parent.getElementsByTagName('step')
         for (let i = 0; i < elementSteps.length; i++) {
-            const stepName = elementSteps[i].getElementsByTagName('name')[0].childNodes[0].nodeValue
+            const stepElement = elementSteps[i];
+            const stepName = stepElement.getElementsByTagName('name')[0]?.textContent || '';
             const step: Step = {
                 name:           stepName,
                 action:         stepName,
                 expectedResult: '',
-                status:         this.getStepStatus(elementSteps[i].getAttribute('status'), testCaseStatus),
+                status:         stepElement.getAttribute('status'),
                 statusDetails:  undefined,
                 stage:          '',
-                start:          Number(elementSteps[i].getAttribute('start')),
-                stop:           Number(elementSteps[i].getAttribute('stop')),
+                start:          Number(stepElement.getAttribute('start')),
+                stop:           Number(stepElement.getAttribute('stop')),
                 parameters:     [],
                 steps:          [],
                 numberOfStep:   '',

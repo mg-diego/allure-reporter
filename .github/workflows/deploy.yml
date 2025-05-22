@@ -43,3 +43,10 @@ jobs:
       # Build the application
       - name: Build the Angular app
         run: npm run build -- --prod
+
+      - name: Deploy to GitHub Pages
+        run: |
+          npm install -g angular-cli-ghpages
+          npx angular-cli-ghpages --dir=dist/<your-project-name>
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -9,6 +9,8 @@ declare var Nanobar: any;
 })
 export class NavbarComponent implements AfterViewInit {
 
+	@Input() toggleParser;
+	@Output() toggleParserChange = new EventEmitter<boolean>();
 	@Input() toggleResults;
 	@Input() isLogged;
 	@Input() allFilesProcessed;
@@ -32,6 +34,11 @@ export class NavbarComponent implements AfterViewInit {
 			};
 			this.nanobar = new Nanobar(options);
 		}
+	}
+
+	public doToggleParserClick() {
+		this.toggleParser = !this.toggleParser;
+		this.toggleParserChange.emit(this.toggleParser);
 	}
 
 	public doResultsClick() {

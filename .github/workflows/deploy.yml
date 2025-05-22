@@ -20,13 +20,21 @@ jobs:
       with:
         node-version: '16'  # Specify the Node.js version to use
 
+    # Install Python 3 (required by node-gyp)
+    - name: Set up Python 3
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y python3 python3-pip
+        sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1
+        python --version  # Verify Python version
+
     # Install dependencies
     - name: Install dependencies
       run: npm install
 
-    # Build the project
+    # Build project
     - name: Build project
-      run: npm run build  # Ensure this matches your build script
+      run: npm run build
 
     # Deploy to GitHub Pages
     - name: Deploy to GitHub Pages

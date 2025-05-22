@@ -1,45 +1,45 @@
-name: Deploy to GitHub Pages
+name: Build and Test Angular App
 
 on:
   push:
     branches:
-      - master  # Trigger deployment on push to the main branch
+      - master
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # Use the latest Ubuntu image
+    runs-on: ubuntu-latest
 
     steps:
-    # Checkout the repository
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      # Checkout the repository code
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    # Set up Node.js
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '16'  # Specify the Node.js version to use
+      # Set up Node.js environment with version 10.x (compatible with Angular 7)
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '10.x'
 
-    # Install Python 2 (required by node-gyp for node-sass)
-    - name: Install Python 2
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y python2 python2.7 python-pip
-        sudo update-alternatives --install /usr/bin/python python /usr/bin/python2 1
-        python --version
+      # Set up Python (needed for some npm packages with node-gyp or native dependencies)
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '2.x'  # Use Python 2.x for compatibility with older dependencies
 
-    # Install dependencies
-    - name: Install dependencies
-      run: npm install
+      # Cache node modules to speed up subsequent builds
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-modules-
 
-    # Build the project
-    - name: Build project
-      run: npm run build
+      # Install dependencies
+      - name: Install dependencies
+        run: |
+          npm install
 
-    # Deploy to GitHub Pages
-    - name: Deploy to GitHub Pages
-      uses: JamesIves/github-pages-deploy-action@v4
-      with:
-        branch: gh-pages  # The branch where the site will be deployed
-        folder: build  # The folder that contains the built files (adjust if necessary)
-        token: ${{ secrets.GITHUB_TOKEN }}  # Automatically available to actions
+      # Build the application
+      - name: Build the Angular app
+        run: npm run build -- --prod

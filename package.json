@@ -25,18 +25,19 @@
     "bootstrap": "^4.1.0",
     "core-js": "^2.5.4",
     "date-fns": "^1.29.0",
-    "systelab-components": "^7.3.1",
-    "nanobar": "^0.4.2",
     "font-awesome": "^4.7.0",
+    "nanobar": "^0.4.2",
     "ngx-file-drop": "^5.0.0",
     "ngx-markdown": "^1.5.2",
     "ngx-toastr": "^10.0.0",
-    "node-sass": "^4.0.0",
     "popper.js": "^1.14.3",
     "rxjs": "~6.3.3",
+    "sass": "^1.89.0",
+    "systelab-components": "^7.3.1",
     "zone.js": "0.8.26"
   },
   "devDependencies": {
+    "@angular-devkit/build-angular": "~0.10.0",
     "@angular/cli": "~7.0.5",
     "@angular/compiler-cli": "~7.0.0",
     "@angular/language-service": "~7.0.0",
@@ -55,7 +56,6 @@
     "protractor": "^5.3.1",
     "ts-node": "~7.0.0",
     "tslint": "^5.10.0",
-    "typescript": "~3.1.6",
-    "@angular-devkit/build-angular": "~0.10.0"
+    "typescript": "~3.1.6"
   }
 }

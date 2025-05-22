@@ -19,16 +19,19 @@ export class AllureTestSuiteService {
         };
 
         const elementTestcases = xmlDocument.getElementsByTagName('test-cases');
-        console.log(`TEST CASES: ${elementTestcases}`)
 
         for (let i = 0; i < elementTestcases.length; i++) {
             const testCaseStatus = elementTestcases[i].getAttribute('status');
+            const testCaseName = elementTestcases[i].getElementsByTagName('name')[0].childNodes[0].nodeValue;       
+
+            console.log(`TEST CASE: ${testCaseName} (${testCaseStatus})`);
+
             const testCase: TestCase = {
-                uuid:        elementTestcases[i].getElementsByTagName('name')[0].childNodes[0].nodeValue,
+                uuid:        testCaseName,
                 historyId:   '',
                 labels:      this.parseLabels(elementTestcases[i]),
                 links:       [],
-                name:        elementTestcases[i].getElementsByTagName('name')[0].childNodes[0].nodeValue,
+                name:        testCaseName,
                 status:      testCaseStatus,
                 stage:       '',
                 description: elementTestcases[i].getElementsByTagName('title')[0].childNodes[0].nodeValue,
@@ -36,8 +39,6 @@ export class AllureTestSuiteService {
                 stop:        Number(elementTestcases[i].getAttribute('stop')),
                 steps:       this.parseSteps(elementTestcases[i], testCaseStatus)
             };
-
-            console.log(`   test case: ${testCase}`)
 
             if (testCase.steps.length === 0) {
                 testCase.steps.push(this.createEmptyStep(elementTestcases[i]));
@@ -108,11 +109,11 @@ export class AllureTestSuiteService {
     private parseSteps(parent: Element, testCaseStatus: string): Step[] {
         const steps: Step[] = [];
         const elementSteps = parent.getElementsByTagName('steps')
-        console.log(`STEPS: ${elementSteps}`)
         for (let i = 0; i < elementSteps.length; i++) {
+            const stepName = elementSteps[i].getElementsByTagName('name')[0].childNodes[0].nodeValue
             const step: Step = {
-                name:           elementSteps[i].getElementsByTagName('name')[0].childNodes[0].nodeValue,
-                action:         elementSteps[i].getElementsByTagName('name')[0].childNodes[0].nodeValue,
+                name:           stepName,
+                action:         stepName,
                 expectedResult: '',
                 status:         this.getStepStatus(elementSteps[i].getAttribute('status'), testCaseStatus),
                 statusDetails:  undefined,
@@ -124,8 +125,8 @@ export class AllureTestSuiteService {
                 numberOfStep:   '',
                 isAction:       false
             };
-            steps.push(step);
-            console.log(`  step: ${step}`)
+            steps.push(step);            
+            console.log(`   STEP: ${step.name} (${step.status})`)
         }
         return steps;
     }

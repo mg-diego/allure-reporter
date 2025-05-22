@@ -8,4 +8,4 @@ RUN npm run build -- --prod --base-href="/allure-reporter/"
 
 EXPOSE 4200
 
-CMD ["http-server", "dist", "-p", "4200", "-a", "0.0.0.0"]
+CMD ["serve", "-s", "dist", "-l", "4200"]

@@ -12,8 +12,8 @@ export class AllureTestSuiteService {
 
     public parseFromDocument(xmlDocument: Document): TestSuite {
         const testSuite = {
-            id:        undefined,
-            name:      undefined,
+            id:        xmlDocument.getElementsByTagName('ns2:test-suite')[0].getElementsByTagName('name')[0].textContent,
+            name:      xmlDocument.getElementsByTagName('ns2:test-suite')[0].getElementsByTagName('title')[0].textContent,
             actualResults: undefined,
             testCases: []
         };
@@ -41,6 +41,10 @@ export class AllureTestSuiteService {
                 stop:        Number(testCaseElement.getAttribute('stop')),
                 steps:       this.parseSteps(testCaseElement)
             };
+
+            testCase.labels.forEach(label => {
+                console.log(` - LABEL: ${label.name} - ${label.value}`);
+            });
 
             if (testCase.steps.length === 0) {
                 testCase.steps.push(this.createEmptyStep(elementTestcases[i]));

@@ -9,6 +9,8 @@ import { DialogService } from 'systelab-components/widgets/modal';
 import { ToastrService } from 'ngx-toastr';
 import { TestCaseService } from './service/test-case.service';
 import { TestSuiteService } from './service/test-suite.service';
+import { AllureTestCaseService } from './service/allure-report/allure-test-case.service';
+import { AllureTestSuiteService } from './service/allure-report/allure-test-suite.service';
 import { Step, TestCase, TestSuite } from './model/allure-test-case.model';
 import { NavbarComponent } from './common/navbar/navbar.component';
 import { environment } from '../environments/environment';
@@ -69,15 +71,15 @@ export class AppComponent {
 		this.update();
 	}
 
-	private _setNewParser = true;
-	get setNewParser(): boolean {
-		return this._setNewParser;
+	private _useAllureParser = false;
+	get useAllureParser(): boolean {
+		return this._useAllureParser;
 	}
-	set setNewParser(isActive: boolean) {
-		this._setNewParser = isActive;
+	set useAllureParser(isActive: boolean) {
+		this._useAllureParser = isActive;
 	}
 
-	constructor(private http: HttpClient, private ref: ChangeDetectorRef, protected dialogService: DialogService, protected testSuiteService: TestSuiteService, protected testCaseService: TestCaseService, private toastr: ToastrService, protected ngZone: NgZone) {
+	constructor(private http: HttpClient, private ref: ChangeDetectorRef, protected dialogService: DialogService, protected testSuiteService: TestSuiteService, protected testCaseService: TestCaseService, protected allureTestSuiteService: AllureTestSuiteService, protected allureTestCaseService: AllureTestCaseService, private toastr: ToastrService, protected ngZone: NgZone) {
 	}
 
 	public fileDrop(event: UploadEvent) {
@@ -102,17 +104,15 @@ export class AppComponent {
 						if (info.name.endsWith('.xml')) {
 							const parser: DOMParser = new DOMParser();
 							const xmlDoc: Document = parser.parseFromString(e.target.result, 'text/xml');
-							const newTestSuite = this.testSuiteService.parseFromDocument(xmlDoc);
-							if (newTestSuite.testCases.length > 0) {
-								if (this.setNewParser) {
-									console.log('NEW PARSER ACTIVATED')
-									this.addTestSuite(newTestSuite);
-								}
-								else {
-									console.log('OLD PARSER ACTIVATED')
-									this.addTestSuite(newTestSuite);
-								}
+							if (this.useAllureParser) {
+								const allureTestSuite = this.allureTestSuiteService.parseFromDocument(xmlDoc);
 							}
+							else {
+								const newTestSuite = this.testSuiteService.parseFromDocument(xmlDoc);
+								if (newTestSuite.testCases.length > 0) {
+									this.addTestSuite(newTestSuite);
+								}
+							}							
 						}
 					}
 				};
@@ -189,7 +189,14 @@ export class AppComponent {
 		}
 	}
 
-	private addTestSuite(newTestSuite: TestSuite) {
+	private addTestSuite(newTestSuite: TestSuite) {		
+		if (this.useAllureParser) {
+			console.log('ALLURE PARSER ACTIVATED')
+		}
+		else {
+			console.log('CUSTOM PARSER ACTIVATED')
+		}
+		
 		if (newTestSuite.id) {
 			const testSuite = this.testSuites.find(ts => ts.id === newTestSuite.id);
 			if (testSuite) {

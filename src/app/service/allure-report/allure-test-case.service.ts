@@ -41,13 +41,13 @@ export class AllureTestCaseService {
 			let stepName = elementSteps[j].name;
 
 			// Set isActionResult and Replace Action: and Expected result:
-			if (elementSteps[j].expectedResult || stepName.includes(TestCaseService.STEP_TYPE_EXPECTED_RESULT)) {
+			if (elementSteps[j].expectedResult || stepName.includes(AllureTestCaseService.STEP_TYPE_EXPECTED_RESULT)) {
 				isActionResult = false;
-				stepName = stepName.replace(TestCaseService.STEP_TYPE_EXPECTED_RESULT, '');
+				stepName = stepName.replace(AllureTestCaseService.STEP_TYPE_EXPECTED_RESULT, '');
 			} else {
-				if (stepName && (elementSteps[j].isAction || stepName.includes(TestCaseService.STEP_TYPE_ACTION))) {
+				if (stepName && (elementSteps[j].isAction || stepName.includes(AllureTestCaseService.STEP_TYPE_ACTION))) {
 					isActionResult = true;
-					stepName = stepName.replace(TestCaseService.STEP_TYPE_ACTION, '');
+					stepName = stepName.replace(AllureTestCaseService.STEP_TYPE_ACTION, '');
 				}
 			}
 

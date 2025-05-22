@@ -106,6 +106,9 @@ export class AppComponent {
 							const xmlDoc: Document = parser.parseFromString(e.target.result, 'text/xml');
 							if (this.useAllureParser) {
 								const allureTestSuite = this.allureTestSuiteService.parseFromDocument(xmlDoc);
+								if (allureTestSuite.testCases.length > 0) {
+									this.addTestSuite(allureTestSuite);
+								}
 							}
 							else {
 								const newTestSuite = this.testSuiteService.parseFromDocument(xmlDoc);

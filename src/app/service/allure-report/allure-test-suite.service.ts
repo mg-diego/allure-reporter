@@ -36,7 +36,7 @@ export class AllureTestSuiteService {
                 name:        testCaseName,
                 status:      testCaseStatus,
                 stage:       '',
-                description: testCaseElement.getElementsByTagName('title')[0].childNodes[0].nodeValue,
+                description: testCaseElement.getElementsByTagName('title')[0].textContent,
                 start:       Number(testCaseElement.getAttribute('start')),
                 stop:        Number(testCaseElement.getAttribute('stop')),
                 steps:       this.parseSteps(testCaseElement)
@@ -66,10 +66,10 @@ export class AllureTestSuiteService {
             }
         }
         if (!testSuite.id) {
-            testSuite.id = xmlDocument.getElementsByTagName('name')[0].childNodes[0].nodeValue;
+            testSuite.id = xmlDocument.getElementsByTagName('name')[0].textContent;
         }
         if (!testSuite.name) {
-            testSuite.name = xmlDocument.getElementsByTagName('title')[0].childNodes[0].nodeValue;
+            testSuite.name = xmlDocument.getElementsByTagName('title')[0].textContent;
         }
         return testSuite;
     }

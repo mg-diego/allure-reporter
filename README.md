@@ -16,7 +16,7 @@ The test environment is at https://systelab.github.io/allure-reporter-test/
 To get you started you can simply clone the `allure-reporter` repository and install the dependencies:
 
 ### Prerequisites
-
+ 
 You need [git][git] to clone the `allure-reporter` repository.
 
 You will need [Node.js][node] and [npm][npm].

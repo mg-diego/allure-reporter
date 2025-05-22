@@ -26,7 +26,7 @@ You will need [Node.js][node] and [npm][npm].
 Clone the `allure-reporter` repository using git:
 
 ```bash
-git clone https://github.com/alfonsserra/allure-reporter.git
+git clone https://github.com/alfonsserra/allure-reporter.git 
 cd allure-reporter
 ```
 

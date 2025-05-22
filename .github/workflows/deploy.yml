@@ -16,7 +16,7 @@ jobs:
 
       # Set up Node.js environment with version 10.x (compatible with Angular 7)
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
           node-version: '10.x'
 
@@ -28,7 +28,7 @@ jobs:
 
       # Cache node modules to speed up subsequent builds
       - name: Cache node modules
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: node_modules
           key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}

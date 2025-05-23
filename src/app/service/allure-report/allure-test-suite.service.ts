@@ -80,8 +80,8 @@ export class AllureTestSuiteService {
 
     private createEmptyStep(testCase): Step {
         const step: Step = {
-            name:           '',
-            action:         '',
+            name:           testCase.getElementsByTagName('name')[0].textContent,
+            action:         testCase.getElementsByTagName('name')[0].textContent,
             expectedResult: '',
             status:         testCase.getAttribute('status'),
             statusDetails:  undefined,

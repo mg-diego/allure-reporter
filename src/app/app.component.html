@@ -23,7 +23,6 @@
 		<help *ngIf="testSuites.length===0"></help>
 
 		<div *ngIf="!useAllureParser">
-			<p>Custom Allure Parser is enabled.</p>
 			<ng-container *ngIf="showSummary && showResults">
 				<test-summary-table [category]="'suite'" [categoryName]="'Test Suite'"></test-summary-table>
 			</ng-container>
@@ -53,7 +52,6 @@
 
 		<!-- Placeholder logic when toggleParser is true -->
 		<div *ngIf="useAllureParser">
-			<p>Default Allure parser is enabled.</p>
 			<ng-container *ngIf="showSummary && showResults">
 				<test-summary-table [category]="'suite'" [categoryName]="'Test Suite'"></test-summary-table>
 			</ng-container>

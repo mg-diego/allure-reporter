@@ -105,12 +105,14 @@ export class AppComponent {
 							const parser: DOMParser = new DOMParser();
 							const xmlDoc: Document = parser.parseFromString(e.target.result, 'text/xml');
 							if (this.useAllureParser) {
+								console.log('ALLURE PARSER ACTIVATED')
 								const allureTestSuite = this.allureTestSuiteService.parseFromDocument(xmlDoc);
 								if (allureTestSuite.testCases.length > 0) {
 									this.addTestSuite(allureTestSuite);
 								}
 							}
 							else {
+								console.log('DEFAULT PARSER ACTIVATED')
 								const newTestSuite = this.testSuiteService.parseFromDocument(xmlDoc);
 								if (newTestSuite.testCases.length > 0) {
 									this.addTestSuite(newTestSuite);
@@ -193,13 +195,6 @@ export class AppComponent {
 	}
 
 	private addTestSuite(newTestSuite: TestSuite) {		
-		if (this.useAllureParser) {
-			console.log('ALLURE PARSER ACTIVATED')
-		}
-		else {
-			console.log('CUSTOM PARSER ACTIVATED')
-		}
-		
 		if (newTestSuite.id) {
 			const testSuite = this.testSuites.find(ts => ts.id === newTestSuite.id);
 			if (testSuite) {
@@ -227,10 +222,6 @@ export class AppComponent {
 		const sMinutes = minutes < 10 ? '0' + minutes : '' + minutes;
 		const strTime = hours + ':' + sMinutes + ' ' + ampm;
 		return date.getMonth() + 1 + '/' + date.getDate() + '/' + date.getFullYear() + '  ' + strTime;
-	}
-
-	public doToggleParser(show: boolean) {
-
 	}
 
 	public doShowUser(show: boolean) {

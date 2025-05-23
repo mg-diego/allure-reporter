@@ -144,7 +144,6 @@ export class TestSuiteService {
 	}
 
 	public addTestCaseToTestSuite(testCase: TestCase, testSuite: TestSuite) {
-
 		const index = testSuite.testCases.findIndex((tc) => tc.uuid === testCase.uuid);
 		if (index !== -1) {
 			testSuite.testCases[index] = testCase;

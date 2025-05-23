@@ -7,7 +7,7 @@ import { Label, Step, TestCase, TestSuite } from '../../model/allure-test-case.m
 })
 export class AllureTestSuiteService {
 
-    constructor(protected testCaseService: AllureTestCaseService) {
+    constructor(protected allureTestCaseService: AllureTestCaseService) {
     }
 
     public parseFromDocument(xmlDocument: Document): TestSuite {
@@ -145,14 +145,13 @@ export class AllureTestSuiteService {
     }
 
     public addTestCaseToTestSuite(testCase: TestCase, testSuite: TestSuite) {
-
         const index = testSuite.testCases.findIndex((tc) => tc.uuid === testCase.uuid);
         if (index !== -1) {
             testSuite.testCases[index] = testCase;
         } else {
-            testCase.steps = this.testCaseService.followTestCaseStructure(testCase.steps, 0, true);
+            //testCase.steps = this.allureTestCaseService.followTestCaseStructure(testCase.steps, 0, true);
             testSuite.testCases.push(testCase);
-            testSuite.testCases.sort((a, b) => (this.testCaseService.getTmsLink(a) > this.testCaseService.getTmsLink(b) ? -1 : 1));
+            testSuite.testCases.sort((a, b) => (this.allureTestCaseService.getTmsLink(a) > this.allureTestCaseService.getTmsLink(b) ? -1 : 1));
         }
     }
 

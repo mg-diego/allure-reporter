@@ -121,7 +121,7 @@ export class AllureTestSuiteService {
                 parameters:     [],
                 steps:          [],
                 numberOfStep:   i + 1,
-                isAction:       false
+                isAction:       true
             };
             steps.push(step);            
             console.log(`   STEP ${step.numberOfStep}: ${step.name} (${step.status})`)

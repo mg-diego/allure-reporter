@@ -77,7 +77,7 @@
 						<div *ngIf="showResults">
 							<test-label *ngFor="let label of test.labels" [label]="label"></test-label>
 						</div>
-						<test-steps [steps]="test.steps" [showResults]="showResults" [action]="" [withHeader]="j===0"></test-steps>
+						<test-steps [steps]="test.steps" [showResults]="showResults" [action]="" [withHeader]="true"></test-steps>
 					</div>
 				</div>
 			</div>

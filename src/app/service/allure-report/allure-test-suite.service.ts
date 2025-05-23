@@ -90,7 +90,7 @@ export class AllureTestSuiteService {
             stop:           testCase.stop,
             parameters:     [],
             steps:          [],
-            numberOfStep:   '',
+            numberOfStep:   1,
             isAction:       true
         };
         return step;
@@ -124,7 +124,7 @@ export class AllureTestSuiteService {
                 isAction:       true
             };
             steps.push(step);            
-            console.log(`   STEP ${step.numberOfStep}: ${step.name} (${step.status} - ${step.action})`)
+            console.log(`   STEP ${step.numberOfStep}: ${step.name} (${step.status})`)
         }
         return steps;
     }

@@ -13,6 +13,7 @@ export class TestStepsComponent {
 	@Input() level = 0;
 	@Input() showResults = true;
 	@Input() action: '';
+	@Input() toggleParser = false;
 
 	public getTimeSpendInStep(step: Step) {
 		return step ? (step.stop - step.start) + ' ms' : '-';
@@ -31,12 +32,18 @@ export class TestStepsComponent {
 
 	public getActionInHTML(action: string, step: Step): string {
 		let actionInHTML = '';
-		if (action) {
-			actionInHTML = action;
+		if(this.toggleParser) {
+			actionInHTML = step.name;
 		}
-		if (step) {
-			actionInHTML += step;
-		}
+		else {
+			if (action) {
+				actionInHTML = action;
+			}
+			if (step) {
+				actionInHTML += step;
+			}
+		}		
+
 		return actionInHTML;
 	}
 }

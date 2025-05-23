@@ -25,7 +25,7 @@
 			<ng-container *ngIf="showResults">{{getTimeSpendInStep(step)}}</ng-container>
 		</div>
 
-		<test-steps *ngIf="step.steps && step.steps.length>0" [steps]="step.steps" [showResults]="showResults" [withHeader]="false" [level]="level+1" class="w-100"></test-steps>
+		<test-steps *ngIf="step.steps && step.steps.length>0" [steps]="step.steps" [showResults]="showResults" [withHeader]="false" [level]="level+1" [toggleParser]="false" class="w-100"></test-steps>
 	</div>
 </div>
 

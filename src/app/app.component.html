@@ -45,7 +45,7 @@
 				</div>
 				<div class="pl-3">
 					<div *ngFor="let test of testSuite.testCases; let j=index">
-						<test-steps [steps]="test.steps" [showResults]="showResults" [action]="test.description" [withHeader]="j===0"></test-steps>
+						<test-steps [steps]="test.steps" [showResults]="showResults" [action]="test.description" [withHeader]="j===0" [toggleParser]="false"></test-steps>
 					</div>
 				</div>
 			</div>
@@ -77,7 +77,7 @@
 						<div *ngIf="showResults">
 							<test-label *ngFor="let label of test.labels" [label]="label"></test-label>
 						</div>
-						<test-steps [steps]="test.steps" [showResults]="showResults" [action]="" [withHeader]="true"></test-steps>
+						<test-steps [steps]="test.steps" [showResults]="showResults" [action]="" [withHeader]="true" [toggleParser]="true"></test-steps>
 					</div>
 				</div>
 			</div>

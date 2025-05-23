@@ -112,7 +112,7 @@ export class AllureTestSuiteService {
             const step: Step = {
                 name:           stepName,
                 action:         stepName,
-                expectedResult: undefined,
+                expectedResult: '',
                 status:         stepElement.getAttribute('status'),
                 statusDetails:  undefined,
                 stage:          '',

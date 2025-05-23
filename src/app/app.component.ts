@@ -104,20 +104,14 @@ export class AppComponent {
 						if (info.name.endsWith('.xml')) {
 							const parser: DOMParser = new DOMParser();
 							const xmlDoc: Document = parser.parseFromString(e.target.result, 'text/xml');
-							if (this.useAllureParser) {
-								console.log('ALLURE PARSER ACTIVATED')
-								const allureTestSuite = this.allureTestSuiteService.parseFromDocument(xmlDoc);
-								if (allureTestSuite.testCases.length > 0) {
-									this.addTestSuite(allureTestSuite);
-								}
-							}
-							else {
-								console.log('DEFAULT PARSER ACTIVATED')
-								const newTestSuite = this.testSuiteService.parseFromDocument(xmlDoc);
-								if (newTestSuite.testCases.length > 0) {
-									this.addTestSuite(newTestSuite);
-								}
-							}							
+							let testSuite: TestSuite
+							testSuite = this.useAllureParser 
+								? this.allureTestSuiteService.parseFromDocument(xmlDoc)
+								: this.testSuiteService.parseFromDocument(xmlDoc);
+								
+							if (testSuite.testCases.length > 0) {
+								this.addTestSuite(testSuite);
+							}													
 						}
 					}
 				};

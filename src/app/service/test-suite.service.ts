@@ -148,7 +148,7 @@ export class TestSuiteService {
 		if (index !== -1) {
 			testSuite.testCases[index] = testCase;
 		} else {
-			testCase.steps = this.testCaseService.followTestCaseStructure(testCase.steps, 0, true);
+			//testCase.steps = this.testCaseService.followTestCaseStructure(testCase.steps, 0, true);
 			testSuite.testCases.push(testCase);
 			testSuite.testCases.sort((a, b) => (this.testCaseService.getTmsLink(a) > this.testCaseService.getTmsLink(b) ? -1 : 1));
 		}

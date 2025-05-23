@@ -149,7 +149,7 @@ export class AllureTestSuiteService {
         if (index !== -1) {
             testSuite.testCases[index] = testCase;
         } else {
-            //testCase.steps = this.allureTestCaseService.followTestCaseStructure(testCase.steps, 0, true);
+            testCase.steps = this.allureTestCaseService.followTestCaseStructure(testCase.steps, 0, true);
             testSuite.testCases.push(testCase);
             testSuite.testCases.sort((a, b) => (this.allureTestCaseService.getTmsLink(a) > this.allureTestCaseService.getTmsLink(b) ? -1 : 1));
         }

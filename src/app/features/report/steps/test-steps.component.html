@@ -8,21 +8,23 @@
 			<div class="col-1 header-cell">Time</div>
 		</div>
 
-		<div *ngFor="let step of steps; let i=index;" class="row">
-			<div class="col-1 cell">{{step.numberOfStep}}</div>
-			<div class="col-6 cell">{{step.action}}</div>
-			<div class="col-3 cell" style="word-break:break-all; word-wrap:break-word">
-				{{step.expectedResult}}
-			</div>
-			<div class="col-1 cell" [class.note]="showResults && hasExpectedResult(step)">
-				<ng-container *ngIf="showResults && hasExpectedResult(step)">
-					<i *ngIf="step.status==='passed'" class="fa fa-check-circle-o" style="font-size:20px;color:green;"></i>
-					<i *ngIf="step.status==='failed'" class="fa fa-times-circle-o" style="font-size:20px;color:red;"></i>
-					<i *ngIf="step.status==='broken'" class="fa fa-times-circle-o" style="font-size:20px;color:orange;"></i>
-				</ng-container>
-			</div>
-			<div class="col-1 cell">
-				<ng-container *ngIf="showResults">{{getTimeSpendInStep(step)}}</ng-container>
+		<div *ngFor="let testCase of testCases; let testCaseIndex = index;">
+			<div *ngFor="let step of steps; let i=index;" class="row">
+				<div class="col-1 cell">{{step.numberOfStep}}</div>
+				<div class="col-6 cell">{{step.action}}</div>
+				<div class="col-3 cell" style="word-break:break-all; word-wrap:break-word">
+					{{step.expectedResult}}
+				</div>
+				<div class="col-1 cell" [class.note]="showResults && hasExpectedResult(step)">
+					<ng-container *ngIf="showResults && hasExpectedResult(step)">
+						<i *ngIf="step.status==='passed'" class="fa fa-check-circle-o" style="font-size:20px;color:green;"></i>
+						<i *ngIf="step.status==='failed'" class="fa fa-times-circle-o" style="font-size:20px;color:red;"></i>
+						<i *ngIf="step.status==='broken'" class="fa fa-times-circle-o" style="font-size:20px;color:orange;"></i>
+					</ng-container>
+				</div>
+				<div class="col-1 cell">
+					<ng-container *ngIf="showResults">{{getTimeSpendInStep(step)}}</ng-container>
+				</div>
 			</div>
 		</div>
 	</div>

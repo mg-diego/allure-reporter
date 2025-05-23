@@ -60,8 +60,8 @@
 
 			<div *ngFor="let testSuite of testSuites">
 				<div class="pt-4 mb-1">
-					<i *ngIf="showResults && testSuiteService.getStatus(testSuite)==='passed'" class="fa fa-check-circle-o" style="font-size:33px;color:green;"></i>
-					<i *ngIf="showResults && testSuiteService.getStatus(testSuite)!=='passed'" class="fa fa-times-circle-o" style="font-size:33px;color:red;"></i>
+					<i *ngIf="showResults && allureTestSuiteService.getStatus(testSuite)==='passed'" class="fa fa-check-circle-o" style="font-size:33px;color:green;"></i>
+					<i *ngIf="showResults && allureTestSuiteService.getStatus(testSuite)!=='passed'" class="fa fa-times-circle-o" style="font-size:33px;color:red;"></i>
 					<h2 class="d-inline">{{testSuite.id}}</h2>
 				</div>
 				<div class="form-group">
@@ -71,7 +71,8 @@
 				<div class="pl-3">
 					<div *ngFor="let test of testSuite.testCases; let j=index">
 						<div class="pt-4 mb-1">
-							<i class="fa-solid fa-file"></i>				
+							<i *ngIf="showResults && test.status==='passed'" class="fa fa-check-circle-o" style="font-size:33px;color:green;"></i>
+							<i *ngIf="showResults && test.status!=='passed'" class="fa fa-times-circle-o" style="font-size:33px;color:red;"></i>		
 							<h3 class="d-inline">{{test.name}}</h3>
 						</div>
 						<div *ngIf="showResults">

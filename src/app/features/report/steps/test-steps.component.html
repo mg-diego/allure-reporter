@@ -8,7 +8,7 @@
 	</div>
 
 	<div *ngFor="let step of steps; let i = index;" class="row">
-		<div class="col-1 cell">{{step.numberOfStep}}</div>
+		<div class="col-1 cell">{{i + 1}}</div>
 		<div class="col-6 cell" [innerHTML]="i === 0 ? getActionInHTML(action, step.action) : step.action"></div>
 		<div class="col-3 cell" style="word-break:break-all; word-wrap:break-word">
 			{{step.expectedResult}}

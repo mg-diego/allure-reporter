@@ -33,7 +33,7 @@ export class TestStepsComponent {
 	public getActionInHTML(action: string, step: Step): string {
 		let actionInHTML = '';
 		if(this.toggleParser) {
-			return step ? step.name : '';
+			return step ? step.name : 'placeholder';
 		}
 		else {
 			if (action) {

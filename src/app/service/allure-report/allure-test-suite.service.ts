@@ -96,15 +96,6 @@ export class AllureTestSuiteService {
         return step;
     }
 
-    private queryDirectChildren(parent, selector) {
-        const nodes = parent.querySelectorAll(selector);
-        const filteredNodes = [].slice.call(nodes)
-            .filter(n =>
-                n.parentNode.closest(selector) === parent.closest(selector)
-            );
-        return filteredNodes;
-    }
-
     public getStepStatus(currentStatus: string, testCaseStatus: string): string {
         if ('failed' === testCaseStatus) {
             return testCaseStatus;
@@ -129,11 +120,11 @@ export class AllureTestSuiteService {
                 stop:           Number(stepElement.getAttribute('stop')),
                 parameters:     [],
                 steps:          [],
-                numberOfStep:   '',
+                numberOfStep:   i + 1,
                 isAction:       false
             };
             steps.push(step);            
-            console.log(`   STEP: ${step.name} (${step.status})`)
+            console.log(`   STEP ${step.numberOfStep}: ${step.name} (${step.status})`)
         }
         return steps;
     }

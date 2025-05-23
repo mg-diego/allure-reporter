@@ -41,6 +41,7 @@
 		  </div>
 			<div class="pl-3">
 				<div *ngFor="let test of testSuite.testCases; let j=index">
+					<p>diego</p>
 					<test-steps [steps]="test.steps" [showResults]="showResults" [action]="test.description" [withHeader]="j===0"></test-steps>
 				</div>
 			</div>

@@ -2,13 +2,13 @@
 	<a class="navbar-brand" href="#">Allure reporter</a>
 	<div class="ml-auto">
 	</div>
-	<button class="border rounded ml-2" type="button" [class.btn-success]="toggleParser" [class.btn-danger]="!toggleParser" (click)="doToggleParserClick()" title="Toggle parser to default Allure Report. (Only for .XML files)">
+	<button class="border rounded ml-2" type="button" [class.btn-success]="toggleParser" [class.btn-danger]="!toggleParser" (click)="doToggleParserClick()" title="Toggle to use default Allure Report format. (Only for .XML files)">
 		<i class="fa fa-file-text text-white mt-1" style="font-size: 23px;"></i>
 	</button>
-	<button class="border rounded ml-2" type="button" [class.btn-success]="toggleResults" [class.btn-danger]="!toggleResults" (click)="doResultsClick()" title="Toggle to hide Results.">
+	<button class="border rounded ml-2" type="button" [class.btn-success]="toggleResults" [class.btn-danger]="!toggleResults" (click)="doResultsClick()" title="Show Test Case results.">
 		<i class="fa fa-check text-white mt-1" style="font-size: 23px;"></i>
 	</button>
-	<button class="border rounded ml-2" type="button" [class.btn-success]="toggleSummary" [class.btn-danger]="!toggleSummary" (click)="doSummaryClick()" title="Toggle to hide Summary.">
+	<button class="border rounded ml-2" type="button" [class.btn-success]="toggleSummary" [class.btn-danger]="!toggleSummary" (click)="doSummaryClick()" title="Show Summary metrics.">
 		<i class="fa fa-table text-white mt-1" style="font-size: 23px;"></i>
 	</button>
 	<button class="btn-primary border rounded ml-2" type="button" (click)="doUserClick()">

@@ -47,7 +47,7 @@ export class AllureTestSuiteService {
             });
 
             if (testCase.steps.length === 0) {
-                testCase.steps.push(this.createEmptyStep(elementTestcases[i]));
+                testCase.steps.push(this.createEmptyStep(testCase));
             }
 
             for (const label of testCase.labels) {
@@ -78,16 +78,16 @@ export class AllureTestSuiteService {
         return testSuite;
     }
 
-    private createEmptyStep(testCase): Step {
+    private createEmptyStep(testCase: TestCase): Step {
         const step: Step = {
-            name:           testCase.getElementsByTagName('name')[0].textContent,
-            action:         testCase.getElementsByTagName('name')[0].textContent,
+            name:           testCase.name,
+            action:         testCase.name,
             expectedResult: '',
-            status:         testCase.getAttribute('status'),
+            status:         testCase.status,
             statusDetails:  undefined,
             stage:          '',
-            start:          Number(testCase.getAttribute('start')),
-            stop:           Number(testCase.getAttribute('stop')),
+            start:          testCase.start,
+            stop:           testCase.stop,
             parameters:     [],
             steps:          [],
             numberOfStep:   '',
@@ -124,7 +124,7 @@ export class AllureTestSuiteService {
                 isAction:       true
             };
             steps.push(step);            
-            console.log(`   STEP ${step.numberOfStep}: ${step.name} (${step.status})`)
+            console.log(`   STEP ${step.numberOfStep}: ${step.name} (${step.status} - ${step.action})`)
         }
         return steps;
     }
